@@ -1,11 +1,7 @@
 import streamlit
-
 import requests
-
 import snowflake.connector
-
 import pandas
-
 from urllib.error import URLError
 
 streamlit.title('My Parents New Healthy Diner')
@@ -30,7 +26,7 @@ streamlit.dataframe(fruits_to_show)
 
 #Create the repeatable code block (called a function)
 def get_fruitvice_data(this_fruit_choice):
-  fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
+  fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+ this_fruit_choice)
   fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
   return(fruityvice_normalized)
 
@@ -43,11 +39,13 @@ try:
     streamlit.error("Please select a fruit to get information.")
   else:
     back_from_function = get_fruitvice_data(fruit_choice)
-    streamlit.dataframe(back_from_function)
+    streamlit.dataframe(back_from_funct ion)
 except URLError as e:
   streamlit.error()
     
-    
+
+streamlit.header("View our fruit list-Add your favourites:")
+
 streamlit.write('The user entered ', fruit_choice)
 
 
@@ -60,11 +58,11 @@ streamlit.write('The user entered ', fruit_choice)
 # it will convert the file in dataframe
 #streamlit.dataframe(fruityvice_normalized)
 # don't run anything past here wile we trobuleshoot
-streamlit.stop()
+#streamlit.stop()
 
 #import snowflake.connector
 
-streamlit.header("View our fruit list-Add your favourites:")
+#streamlit.header("View our fruit list-Add your favourites:")
 
 #snowflake-related-functions
 
